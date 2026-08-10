@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen Express | Magical Petals Edition ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
+
+        :root {
+            --primary: #FF85A1; /* Cute Pastel Pink */
+            --secondary: #FFB3C6; /* Soft Rose */
+            --accent: #FFD166; /* Sunny Yellow */
+            --bg: #FFF0F5; /* Lavender Blush */
+            --card: #FFFFFF;
+            --text: #59405C; /* Soft Deep Mauve */
+            --shadow: 0 10px 30px rgba(255, 133, 161, 0.25);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Quicksand', sans-serif; 
+        }
+
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            padding-bottom: 60px; 
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Falling Petals Background Animation */
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 9999;
+        }
+
+        .petal {
+            position: absolute;
+            background: linear-gradient(135deg, #ffb3c6, #ff85a1);
+            border-radius: 150% 0 150% 0;
+            animation: fall linear infinite;
+            opacity: 0.75;
+            transform: scale(0.6);
+            box-shadow: 0 0 10px rgba(255, 133, 161, 0.3);
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10vh;
+                transform: translateX(0) rotate(0deg) scale(0.6);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                top: 105vh;
+                transform: translateX(180px) rotate(360deg) scale(0.9);
+                opacity: 0;
+            }
+        }
+
+        header { 
+            text-align: center; 
+            padding: 60px 20px; 
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
+            color: white; 
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: var(--shadow);
+            animation: fadeInDown 1s ease-in-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            text-shadow: 2px 3px 6px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .nav-container { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 12px; 
+            margin: 35px 20px; 
+            animation: fadeInUp 1s ease-in-out;
+            position: relative;
+            z-index: 2;
+        }
+        
+        button { 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 50px; 
+            background: var(--card); 
+            color: var(--primary); 
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 133, 161, 0.15);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        button:hover { 
+            background: var(--primary); 
+            color: white; 
+            transform: translateY(-5px) scale(1.08); 
+            box-shadow: 0 8px 22px rgba(255, 133, 161, 0.4);
+        }
+
+        section { 
+            max-width: 800px; 
+            margin: 40px auto; 
+            padding: 40px; 
+            background: var(--card); 
+            border-radius: 25px; 
+            box-shadow: var(--shadow); 
+            border-left: 8px solid var(--primary); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        section:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(255, 133, 161, 0.3);
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 16px; text-align: left; border-bottom: 2px dashed #FFE5EC; }
+        
+        .price-tag { 
+            color: var(--primary); 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            padding: 10px 18px; 
+            border-radius: 20px; 
+            text-align: right;
+        }
+        
+        .price-tag:hover { 
+            background: var(--secondary); 
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(255, 133, 161, 0.3);
+        }
+
+        .checkout-box { 
+            background: #FFF9FA; 
+            padding: 40px; 
+            border-radius: 25px; 
+            border: 2px dashed var(--secondary); 
+        }
+
+        label {
+            font-weight: 700;
+            color: var(--text);
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select { 
+            width: 100%; 
+            padding: 14px 18px; 
+            margin: 8px 0 20px 0; 
+            border: 2px solid #FFE5EC; 
+            border-radius: 15px; 
+            outline: none;
+            transition: all 0.3s ease;
+            background: #FFFFFF;
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 12px rgba(255, 133, 161, 0.25);
+        }
+        
+        .back-top { 
+            display: inline-block; 
+            margin-top: 25px; 
+            color: var(--primary); 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+
+        .back-top:hover {
+            transform: translateX(-5px);
+            color: #FF5C8A;
+        }
+
+        .reservation-table { 
+            margin-top: 35px; 
+            font-size: 0.95em; 
+            background: #FFF9FA; 
+            padding: 22px; 
+            border-radius: 18px; 
+            border: 1.5px solid #FFE5EC;
+            box-shadow: inset 0 2px 8px rgba(255, 133, 161, 0.05);
+        }
+
+        .reservation-table h4 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .reservation-table th {
+            color: #7A5C80;
+            border-bottom: 2px solid var(--secondary);
+            padding: 10px;
+        }
+
+        .reservation-table td {
+            padding: 10px;
+            border-bottom: 1px dashed #FFE5EC;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            width: 100%;
+            font-size: 1.25em;
+            padding: 18px;
+            border-radius: 18px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 133, 161, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .confirm-btn:hover {
+            background: linear-gradient(135deg, #FF6B8B, var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 133, 161, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Falling Petals Container -->
+<div class="petals-container" id="petalsContainer"></div>
+
+<header id="top">
+    <h1>✨ Canteen Express ✨</h1>
+    <p>Skip the line! Order online and pick up your meal fresh & sweet.</p>
+</header>
+
+<nav class="nav-container">
+    <button onclick="document.getElementById('burger').scrollIntoView({behavior:'smooth'})">🍔 Burger</button>
+    <button onclick="document.getElementById('siomai').scrollIntoView({behavior:'smooth'})">🍚 Siomai</button>
+    <button onclick="document.getElementById('chicken').scrollIntoView({behavior:'smooth'})">🍗 Chicken</button>
+    <button onclick="document.getElementById('drinks').scrollIntoView({behavior:'smooth'})">🥤 Drinks</button>
+    <button onclick="document.getElementById('noodles').scrollIntoView({behavior:'smooth'})">🍜 Noodles</button>
+    <button onclick="document.getElementById('snacks').scrollIntoView({behavior:'smooth'})">🍟 Snacks</button>
+    <button onclick="document.getElementById('checkout').scrollIntoView({behavior:'smooth'})">🛒 Checkout</button>
+</nav>
+
+<!-- Stalls -->
+<section id="burger">
+    <h2>🍔 Burger Stall</h2>
+    <table>
+        <tr><td>Cheese Burger</td><td class="price-tag" onclick="selectItem('Cheese Burger', 50)">₱50</td></tr>
+        <tr><td>Double Burger</td><td class="price-tag" onclick="selectItem('Double Burger', 80)">₱80</td></tr>
+        <tr><td>Burger with Fries</td><td class="price-tag" onclick="selectItem('Burger w/ Fries', 95)">₱95</td></tr>
+        <tr><td>French Fries</td><td class="price-tag" onclick="selectItem('French Fries', 35)">₱35</td></tr>
+    </table>
+    <a href="#top" class="back-top">🌸 Back to Top</a>
+    <div class="reservation-table">
+        <h4>Recent Reservations</h4>
+        <table>
+            <tr><th>Name</th><th>Order</th><th>Payment</th></tr>
+            <tr><td>Bert Patilla</td><td>Cheese Burger</td><td>GCash</td></tr>
+        </table>
+    </div>
+</section>
+
+<section id="siomai">
+    <h2>🍚 Siomai Rice Stall</h2>
+    <table>
+        <tr><td>4 pcs Siomai Rice</td><td class="price-tag" onclick="selectItem('4 pcs Siomai Rice', 45)">₱45</td></tr>
+        <tr><td>6 pcs Siomai Rice</td><td class="price-tag" onclick="selectItem('6 pcs Siomai Rice', 60)">₱60</td></tr>
+        <tr><td>Extra Rice</td><td class="price-tag" onclick="selectItem('Extra Rice', 15)">₱15</td></tr>
+        <tr><td>Siomai w/ Soft Drink</td><td class="price-tag" onclick="selectItem('Siomai w/ Drink', 75)">₱75</td></tr>
+    </table>
+    <a href="#top" class="back-top">🌸 Back to Top</a>
+    <div class="reservation-table">
+        <h4>Recent Reservations</h4>
+        <table>
+            <tr><th>Name</th><th>Order</th><th>Payment</th></tr>
+            <tr><td>Precious Jiminez</td><td>6 pcs Siomai Rice</td><td>Maya</td></tr>
+        </table>
+    </div>
+</section>
+
+<section id="chicken">
+    <h2>🍗 Fried Chicken Stall</h2>
+    <table>
+        <tr><td>Chicken with Rice</td><td class="price-tag" onclick="selectItem('Chicken w/ Rice', 90)">₱90</td></tr>
+        <tr><td>Chicken Fillet</td><td class="price-tag" onclick="selectItem('Chicken Fillet', 70)">₱70</td></tr>
+        <tr><td>Extra Gravy</td><td class="price-tag" onclick="selectItem('Extra Gravy', 5)">₱5</td></tr>
+    </table>
+    <a href="#top" class="back-top">🌸 Back to Top</a>
+    <div class="reservation-table">
+        <h4>Recent Reservations</h4>
+        <table>
+            <tr><th>Name</th><th>Order</th><th>Payment</th></tr>
+            <tr><td>Ailyn Robles</td><td>Chicken with Rice</td><td>GCash</td></tr>
+        </table>
+    </div>
+</section>
+
+<section id="drinks">
+    <h2>🥤 Drinks Stall</h2>
+    <table>
+        <tr><td>Water</td><td class="price-tag" onclick="selectItem('Water', 15)">₱15</td></tr>
+        <tr><td>Iced Tea</td><td class="price-tag" onclick="selectItem('Iced Tea', 25)">₱25</td></tr>
+        <tr><td>Soft Drinks</td><td class="price-tag" onclick="selectItem('Soft Drinks', 30)">₱30</td></tr>
+    </table>
+    <a href="#top" class="back-top">🌸 Back to Top</a>
+    <div class="reservation-table">
+        <h4>Recent Reservations</h4>
+        <table>
+            <tr><th>Name</th><th>Order</th><th>Payment</th></tr>
+            <tr><td>Aalijah Calonge</td><td>Iced Tea</td><td>Cash on Pickup</td></tr>
+        </table>
+    </div>
+</section>
+
+<section id="noodles">
+    <h2>🍜 Noodle Stall</h2>
+    <table>
+        <tr><td>Batchoy</td><td class="price-tag" onclick="selectItem('Batchoy', 60)">₱60</td></tr>
+        <tr><td>Lomi</td><td class="price-tag" onclick="selectItem('Lomi', 55)">₱55</td></tr>
+        <tr><td>Pancit Canton</td><td class="price-tag" onclick="selectItem('Pancit Canton', 45)">₱45</td></tr>
+    </table>
+    <a href="#top" class="back-top">🌸 Back to Top</a>
+    <div class="reservation-table">
+        <h4>Recent Reservations</h4>
+        <table>
+            <tr><th>Name</th><th>Order</th><th>Payment</th></tr>
+            <tr><td>Rhea Alcazarin</td><td>Batchoy</td><td>Maya</td></tr>
+        </table>
+    </div>
+</section>
+
+<section id="snacks">
+    <h2>🍟 Snacks Stall</h2>
+    <table>
+        <tr><td>Pizza Slice</td><td class="price-tag" onclick="selectItem('Pizza Slice', 35)">₱35</td></tr>
+        <tr><td>Nachos</td><td class="price-tag" onclick="selectItem('Nachos', 40)">₱40</td></tr>
+        <tr><td>Hotdog Sandwich</td><td class="price-tag" onclick="selectItem('Hotdog Sandwich', 30)">₱30</td></tr>
+    </table>
+    <a href="#top" class="back-top">🌸 Back to Top</a>
+    <div class="reservation-table">
+        <h4>Recent Reservations</h4>
+        <table>
+            <tr><th>Name</th><th>Order</th><th>Payment</th></tr>
+            <tr><td>Bert Patilla</td><td>Nachos</td><td>GCash</td></tr>
+        </table>
+    </div>
+</section>
+
+<!-- Checkout Section -->
+<section id="checkout" class="checkout-box">
+    <h2>🛒 Your Cute Cart</h2>
+    <label>Item</label><input type="text" id="itemName" readonly>
+    <label>Price (₱)</label><input type="number" id="price" readonly>
+    <label>Quantity</label><input type="number" id="qty" value="1" min="1" oninput="calculateTotal()">
+    <label>Name</label><input type="text" id="name" placeholder="bertability💋" required>
+    <label>Grade & Section</label><input type="text" id="grade" value="12 BABYLON" readonly required>
+    <label>Pickup Time</label>
+    <select id="time"><option>4:05 PM</option><option>4:10 PM</option></select>
+    <label>Payment Method</label>
+    <select id="payment"><option>GCash</option><option>Maya</option><option>Cash on Pickup</option></select>
+    <h3 style="color: var(--primary); margin: 15px 0; font-size: 1.5rem;">Total: ₱<span id="total">0</span></h3>
+    <button class="confirm-btn" onclick="confirmOrder()">Confirm Order ✨</button>
+</section>
+
+<script>
+    // Generate falling petals dynamically
+    function createPetals() {
+        const container = document.getElementById('petalsContainer');
+        const petalCount = 22;
+
+        for (let i = 0; i < petalCount; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            
+            const size = Math.random() * 12 + 10; // size between 10px and 22px
+            petal.style.width = ${size}px;
+            petal.style.height = ${size * 1.4}px;
+            petal.style.left = ${Math.random() * 100}vw;
+            petal.style.animationDuration = ${Math.random() * 6 + 4}s; // fall time between 4s and 10s
+            petal.style.animationDelay = ${Math.random() * 5}s;
+            
+            container.appendChild(petal);
+        }
+    }
+
+    createPetals();
+
+    function selectItem(name, price) {
+        document.getElementById('itemName').value = name;
+        document.getElementById('price').value = price;
+        calculateTotal();
+        document.getElementById('checkout').scrollIntoView({behavior:'smooth'});
+    }
+
+    function calculateTotal() {
+        const price = document.getElementById('price').value || 0;
+        const qty = document.getElementById('qty').value || 1;
+        document.getElementById('total').innerText = price * qty;
+    }
+
+    function confirmOrder() {
+        const name = document.getElementById('name').value || "bertability💋";
+        alert("💖 Order Confirmed!\n\nReservation Number: #" + Math.floor(1000 + Math.random()*9000) + "\n\nThank you, " + name + "! Please pick up your food at your selected time. ✨");
+    }
+</script>
+
+</body>
+</html>
